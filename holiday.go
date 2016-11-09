@@ -1,4 +1,4 @@
-package main
+package holidayJP
 
 import (
     "encoding/json"
@@ -660,7 +660,7 @@ func holidaysMap() (map[string]string, error) {
     return holidays, nil
 }
 
-func PrepareHoliday() {
+func Prepare() {
     _holidays, _ = holidaysMap()
 }
 
