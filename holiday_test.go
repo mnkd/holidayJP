@@ -18,8 +18,6 @@ func isFalse(ti time.Time, t *testing.T) {
 }
 
 func TestHolidays(t *testing.T) {
-    PrepareHoliday()
-
     isTrue(time.Date(2016,  1,  1, 12, 0, 0, 0, time.UTC), t)
     isTrue(time.Date(2016,  2, 11, 12, 0, 0, 0, time.UTC), t)
     isTrue(time.Date(2016, 11,  3, 12, 0, 0, 0, time.UTC), t)
