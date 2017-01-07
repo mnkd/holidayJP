@@ -7,7 +7,39 @@ import (
 )
 
 var holidays map[string]string
-var jsonString = `{
+
+func prepare() {
+    // Unmarshal json
+    h := make(map[string]string)
+    data := []byte(jsonString)
+
+    var f interface{}
+    if err := json.Unmarshal(data, &f); err != nil {
+        fmt.Println("JSON Unmarshal Error:", err)
+        return
+    }
+
+    // Covert to map[string]string
+    m := f.(map[string]interface{})
+    for k, v := range m {
+        h[k] = fmt.Sprint(v)
+    }
+
+    holidays = h
+}
+
+func IsHoliday(jst time.Time) bool {
+    if len(holidays) == 0 {
+        prepare()
+    }
+
+    str := fmt.Sprintf("%04d-%02d-%02d", jst.Year(), jst.Month(), jst.Day())
+    name := holidays[str]
+
+    return len(name) > 0
+}
+
+const jsonString = `{
 "2016-01-01": "元日",
 "2016-01-11": "成人の日",
 "2016-02-11": "建国記念の日",
@@ -633,35 +665,3 @@ var jsonString = `{
 "2050-11-23": "勤労感謝の日"
 }
 `
-
-func prepare() {
-    // Unmarshal json
-    h := make(map[string]string)
-    data := []byte(jsonString)
-
-    var f interface{}
-    if err := json.Unmarshal(data, &f); err != nil {
-        fmt.Println("JSON Unmarshal Error:", err)
-        return
-    }
-
-    // Covert to map[string]string
-    m := f.(map[string]interface{})
-    for k, v := range m {
-        h[k] = fmt.Sprint(v)
-    }
-
-    holidays = h
-}
-
-func IsHoliday(t time.Time) bool {
-    if len(holidays) == 0 {
-        prepare()
-    }
-
-    var JST = time.FixedZone("JST", 3600*9)
-    jst := t.In(JST)
-    str := fmt.Sprintf("%04d-%02d-%02d", jst.Year(), jst.Month(), jst.Day())
-    name := holidays[str]
-    return len(name) > 0
-}
