@@ -1,31 +1,32 @@
 package holidayJP
 
 import (
-    "encoding/json"
-    "fmt"
-    "time"
+	"encoding/json"
+	"fmt"
+	"os"
+	"time"
 )
 
 var holidays map[string]string
 
-func prepare() {
-    // Unmarshal json
-    h := make(map[string]string)
-    data := []byte(jsonString)
+func setup() {
+	// Unmarshal json
+	h := make(map[string]string)
+	data := []byte(jsonString)
 
-    var f interface{}
-    if err := json.Unmarshal(data, &f); err != nil {
-        fmt.Println("JSON Unmarshal Error:", err)
-        return
-    }
+	var f interface{}
+	if err := json.Unmarshal(data, &f); err != nil {
+		fmt.Fprintln(os.Stderr, "JSON Unmarshal Error:", err)
+		return
+	}
 
-    // Covert to map[string]string
-    m := f.(map[string]interface{})
-    for k, v := range m {
-        h[k] = fmt.Sprint(v)
-    }
+	// Covert to map[string]string
+	m := f.(map[string]interface{})
+	for k, v := range m {
+		h[k] = v.(string)
+	}
 
-    holidays = h
+	holidays = h
 }
 
 func init() {
