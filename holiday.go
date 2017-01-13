@@ -28,15 +28,14 @@ func prepare() {
     holidays = h
 }
 
+func init() {
+	setup()
+}
+
 func IsHoliday(jst time.Time) bool {
-    if len(holidays) == 0 {
-        prepare()
-    }
-
-    str := fmt.Sprintf("%04d-%02d-%02d", jst.Year(), jst.Month(), jst.Day())
-    name := holidays[str]
-
-    return len(name) > 0
+	s := jst.Format("2006-01-02")
+	_, ok := holidays[s]
+	return ok
 }
 
 // Acknowledgements
