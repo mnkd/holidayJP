@@ -3,5 +3,5 @@
 ## Install
 
 ```
-$ go get github.com/m-nakada/holidayJP
+$ go get github.com/mnkd/holidayJP
 ```
