@@ -16,7 +16,7 @@ func setup() {
 
 	var f interface{}
 	if err := json.Unmarshal(data, &f); err != nil {
-		fmt.Fprintln(os.Stderr, "JSON Unmarshal Error:", err)
+		fmt.Fprintln(os.Stderr, "holidayJP: <error> json unmarshal:", err)
 		return
 	}
 
