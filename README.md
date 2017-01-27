@@ -1,7 +1,2 @@
 # holidayJP
-
-## Install
-
-```
-$ go get github.com/mnkd/holidayJP
-```
+holidayJP — provide a function which check whether it is Japanese holiday.
